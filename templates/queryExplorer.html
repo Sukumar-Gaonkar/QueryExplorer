@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" style="height: 100%">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signin.css') }}">
+    <title>Hello, world!</title>
+</head>
+<body class="text-center" onload="initQueryExplorer()">
+<main role="main" class="container">
+    <div class="starter-template">
+        <h1 style="margin-bottom: 1.5rem">Query Explorer</h1>
+        <div class="row">
+            <form method="GET" action="/" style="width: 100%">
+                <input type="text" id="activeDB" name="activeDB" value="MySQL" hidden="hidden"/>
+                <input type="text" id="query" name="query" class="form-control col-12" style="margin-bottom: 15px"
+                       placeholder="Enter your SQL Query..."/>
+                <input type="submit" id="execute" class="btn btn-outline-danger" onclick="getData()"
+                       style="margin-left: 20px" value="Execute">
+            </form>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example" style="margin-top: 20px">
+            <button type="button" id="mysql_button" class="btn btn-outline-success {{mysqlActive}}"
+                    onclick="switchDB(this)">
+                MySQL
+            </button>
+            <button type="button" id="redshift_button" class="btn btn-outline-success {{redShiftActive}}"
+                    onclick="switchDB(this)">
+                RedShift
+            </button>
+        </div>
+    </div>
+    {% if status %}
+    <div class="alert alert-{{ status }}" role="alert" style="margin-top: 20px">
+        {{ msg }}
+    </div>
+    {% endif %}
+
+    {% if columns %}
+    <div style="margin-top: 20px">
+        <h1>Results</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                {% for col in columns %}
+                <th scope="col">{{ col }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for tup in data %}
+            <tr>
+                {% for item in tup %}
+                <td>{{ item }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</main><!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<!--<script src="js/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>-->
+<script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/queryExplorer.js') }}"></script>
+</body>
+</html>
