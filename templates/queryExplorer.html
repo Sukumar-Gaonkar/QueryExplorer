@@ -32,6 +32,10 @@
                     onclick="switchDB(this)">
                 RedShift
             </button>
+            <button type="button" id="mongodb_button" class="btn btn-outline-success {{mongodbActive}}"
+                    onclick="switchDB(this)">
+                MongoDB
+            </button>
         </div>
     </div>
     {% if status %}
@@ -40,27 +44,31 @@
     </div>
     {% endif %}
 
-    {% if columns %}
+    {% if resultPresent %}
     <div style="margin-top: 20px">
         <h1>Results</h1>
-        <table class="table">
-            <thead>
-            <tr>
-                {% for col in columns %}
-                <th scope="col">{{ col }}</th>
+        {% if not NoSQL %}
+            <table class="table">
+                <thead>
+                <tr>
+                    {% for col in columns %}
+                    <th scope="col">{{ col }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for tup in data %}
+                <tr>
+                    {% for item in tup %}
+                    <td>{{ item }}</td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
-            </tr>
-            </thead>
-            <tbody>
-            {% for tup in data %}
-            <tr>
-                {% for item in tup %}
-                <td>{{ item }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        {% else %}
+            <p>No SQL</p>
+        {% endif %}
     </div>
     {% endif %}
 </main><!-- Optional JavaScript -->
