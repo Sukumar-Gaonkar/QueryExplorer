@@ -42,3 +42,13 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+.json_str{
+    text-align: left;
+}
+
+.card_holder{
+    border-radius : 30px;
+    margin : 40px 0px;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19)
+}

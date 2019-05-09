@@ -17,8 +17,8 @@
         <div class="row">
             <form method="GET" action="/" style="width: 100%">
                 <input type="text" id="activeDB" name="activeDB" value="MySQL" hidden="hidden"/>
-                <input type="text" id="query" name="query" class="form-control col-12" style="margin-bottom: 15px"
-                       placeholder="Enter your SQL Query..."/>
+                <textarea type="text" id="query" name="query" class="form-control col-12" style="margin-bottom: 15px; height: 10em;"
+                          placeholder="Enter your SQL Query..."></textarea>
                 <input type="submit" id="execute" class="btn btn-outline-danger" onclick="getData()"
                        style="margin-left: 20px" value="Execute">
             </form>
@@ -47,7 +47,7 @@
     {% if resultPresent %}
     <div style="margin-top: 20px">
         <h1>Results</h1>
-        {% if not NoSQL %}
+        {% if not isNoSQL %}
             <table class="table">
                 <thead>
                 <tr>
@@ -67,7 +67,14 @@
                 </tbody>
             </table>
         {% else %}
-            <p>No SQL</p>
+            {% for jsonObj in data %}
+                <div class="card_holder">
+                    <div class="card-body">
+                        <div class="card-text"><pre class="json_str">{{jsonObj | safe}}</pre></div>
+                    </div>
+                </div>
+            {% endfor %}
+
         {% endif %}
     </div>
     {% endif %}
