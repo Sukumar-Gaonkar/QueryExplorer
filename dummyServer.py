@@ -72,7 +72,7 @@ def query():
                 project_clause = {p : 1 for p in cols} if cols[0] != "*" else {}
                 project_clause["_id"] = 0
                 mongo_clause = {}
-                operators = {"=": "$eq", ">": "$gt", "<": "$lt", ">=": "$geq", "<=": "$leq"}
+                operators = {"=": "$eq", ">": "$gt", "<": "$lt", ">=": "$gte", "<=": "$lte", "<>":"$ne"}
                 if len(where_clause) == 1:
                     mongo_clause[where_clause[0][1]] = {operators[where_clause[0][2]]: where_clause[0][3]}
                 elif len(where_clause) > 1:
